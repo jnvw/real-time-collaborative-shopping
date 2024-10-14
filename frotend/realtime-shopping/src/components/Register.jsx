@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Register = () => {
@@ -59,13 +60,13 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex bg-gray-950 items-center justify-center h-screen">
       <div className="w-full max-w-md">
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          className="bg-slate-900 shadow-md rounded px-8 pt-6 pb-8 mb-4"
         >
-          <h2 className="text-center text-2xl font-bold mb-6">Register</h2>
+          <h2 className="text-center text-gray-300 text-2xl font-bold mb-6">Register</h2>
 
           {/* Show success message */}
           {/* {success && (
@@ -83,7 +84,7 @@ const Register = () => {
 
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-300 text-sm font-bold mb-2"
               htmlFor="username"
             >
               Username
@@ -93,7 +94,7 @@ const Register = () => {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none bg-gray-800 border rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter your username"
               required
             />
@@ -101,7 +102,7 @@ const Register = () => {
 
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-200 text-sm font-bold mb-2"
               htmlFor="email"
             >
               Email
@@ -111,7 +112,7 @@ const Register = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none  bg-gray-800 text-gray-300 border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter your email"
               required
             />
@@ -119,7 +120,7 @@ const Register = () => {
 
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block  text-gray-300 text-sm font-bold mb-2"
               htmlFor="password"
             >
               Password
@@ -129,7 +130,7 @@ const Register = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border   rounded w-full py-2 px-3 bg-gray-800 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter your password"
               required
             />
@@ -137,7 +138,7 @@ const Register = () => {
 
           <div className="mb-6">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-100 text-sm font-bold mb-2"
               htmlFor="confirmPassword"
             >
               Confirm Password
@@ -147,7 +148,7 @@ const Register = () => {
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-800 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Confirm your password"
               required
             />
@@ -160,6 +161,7 @@ const Register = () => {
             >
               Register
             </button>
+             <Link to="/login" className='italic underline text-blue-300'>already registered</Link>
           </div>
         </form>
       </div>

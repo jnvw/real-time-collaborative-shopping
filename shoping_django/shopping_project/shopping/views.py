@@ -4,14 +4,17 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Cart, Product
 from .serializers import CartSerializer, ProductSerializer
 # shopping/views.py
+from rest_framework import viewsets, filters  # Import filters from DRF
+
+
 from .permissions import IsCartOwner
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken # type: ignore
 
-
+from django_filters.rest_framework import DjangoFilterBackend
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.response import Response
@@ -61,11 +64,27 @@ class CartViewSet(viewsets.ModelViewSet):
         user = self.request.user
         family = Family.objects.filter(members=user).first()
         serializer.save(family=family)
-
+# Custom permission to allow only superusers to create products
+class IsSuperUser(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # Allow read permissions for any authenticated user
+        if request.method in permissions.SAFE_METHODS:
+            return request.user.is_authenticated
+        # Write permissions are only allowed to superusers
+        return request.user.is_authenticated and request.user.is_superuser
+        
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by('-created_at')  # Newest products first
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsSuperUser]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]  # Enable filters
+    filterset_fields = ['category']  # Filtering by category
+    search_fields = ['name', 'category'] 
+    def create(self, request, *args, **kwargs):
+        # Only allow superusers to create products
+        if not request.user.is_superuser:
+            return Response({'error': 'Only superusers can add products.'}, status=status.HTTP_403_FORBIDDEN)
+        return super().create(request, *args, **kwargs)
 
 class CartViewSet(viewsets.ModelViewSet):
     serializer_class = CartSerializer
