@@ -86,8 +86,10 @@ const Products = () => {
       <ul className="grid lg:grid-cols-3 px-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 gap-4 mb-4">
         {products.map((product) => (
           <li key={product.id} className="mb-2">
+             <Link to={`/products/${product.id}`}>
             <Cards name={product.name} price={product.price} image={product.image} />
-          </li>
+          
+            </Link></li>
         ))}
       </ul>
       
@@ -127,7 +129,7 @@ const Products = () => {
         </button>
       </form>
 
-      {error && <p className="text-red-500">{erroe}<Link to="/login" className='underline mx-4 italic font-bold text-red-500'>Login first</Link> </p>}
+      {error && <p className="text-red-500">{error}<Link to="/login" className='underline mx-4 italic font-bold text-red-500'>Login first</Link> </p>}
     </div>
   );
 };

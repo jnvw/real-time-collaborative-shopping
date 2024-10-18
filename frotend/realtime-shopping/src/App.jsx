@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Cart from './components/Cart';
 import Cards from './components/Cards';
 import Products from './components/Products';
+import ProductDetails from './components/ProductDetails';
 function App() {
   return (
     <>
@@ -20,13 +21,15 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/carts" element={<Dashboard />} />
-          <Route path="/Products" element={<Products />} />
+          <Route path="/carts" element={<Cart />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
         </Routes>
       </div>
       <Footer/>
     </Router>
     <ToastContainer />
+   
     
     </>
   );
