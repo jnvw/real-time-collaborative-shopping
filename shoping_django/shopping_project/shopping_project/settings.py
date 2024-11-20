@@ -122,6 +122,9 @@ SIMPLE_JWT = {
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# settings.py
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

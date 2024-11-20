@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FamilyGroup from './FamilyGroup';
 
 const Dashboard = () => {
   const handleLogout = () => {
@@ -23,6 +24,7 @@ const Dashboard = () => {
           </button>
         </div>
       </header>
+      <FamilyGroup/>
 
       {/* Dashboard Content */}
       <div className="container mx-auto p-6">

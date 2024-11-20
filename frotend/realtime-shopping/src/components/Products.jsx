@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Cards from './Cards';
 import { Link } from 'react-router-dom';
+import AddToCartButton from './AddToCartButton';
+
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -125,7 +127,7 @@ const Products = () => {
           />
         </div>
         <button type="submit" className="bg-blue-500 text-white text-xl mt-7 mb-3 p-2 rounded">
-          Add Product
+          <AddToCartButton/>
         </button>
       </form>
 

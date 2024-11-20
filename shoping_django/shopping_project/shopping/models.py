@@ -1,13 +1,26 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-class Family(models.Model):
-    name = models.CharField(max_length=255)
-    members = models.ManyToManyField(User)
+from django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings
+import uuid
+from django.db import models
 
-class Cart(models.Model):
-    family = models.ForeignKey(Family, on_delete=models.CASCADE)
-    items = models.JSONField(default=list)
+# models.py
+from django.db import models
+from django.contrib.auth.models import User  # Or your custom user model
+
+class Family(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='families')
+    invite_code = models.CharField(max_length=100, unique=True,null=True)
+
+    def __str__(self):
+        return f"{self.owner}'s family group"
+
+
+
+
 
 
 
@@ -38,6 +51,24 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Cart"
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name}"
 
 
 class Order(models.Model):
