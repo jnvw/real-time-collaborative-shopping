@@ -173,10 +173,10 @@ class CartViewSet(viewsets.ViewSet):
         cart, _ = Cart.objects.get_or_create(user=request.user)
         serializer = CartSerializer(cart)
         return Response(serializer.data)
+    
 
-    @action(detail=False, methods=['post'])
-    def add_to_cart(self, request):
-        product_id = request.data.get('product_id')
+    @action(detail=False, methods=['post'], url_path='add/(?P<product_id>[^/.]+)')
+    def add_to_cart(self, request, product_id):
         quantity = request.data.get('quantity', 1)
         product = get_object_or_404(Product, id=product_id)
 
@@ -189,6 +189,22 @@ class CartViewSet(viewsets.ViewSet):
             cart_item.save()
 
         return Response({"message": "Product added to cart"}, status=status.HTTP_201_CREATED)
+
+    # @action(detail=False, methods=['post'])
+    # def add_to_cart(self, request):
+    #     product_id = request.data.get('product_id')
+    #     quantity = request.data.get('quantity', 1)
+    #     product = get_object_or_404(Product, id=product_id)
+
+    #     cart, _ = Cart.objects.get_or_create(user=request.user)
+
+    #     # Check if item already in cart
+    #     cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    #     if not created:
+    #         cart_item.quantity += int(quantity)
+    #         cart_item.save()
+
+    #     return Response({"message": "Product added to cart"}, status=status.HTTP_201_CREATED)
 
     @action(detail=False, methods=['post'])
     def remove_from_cart(self, request):
