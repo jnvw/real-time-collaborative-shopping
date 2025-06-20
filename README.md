@@ -1,6 +1,6 @@
 # Real-Time-Collaborative-Shopping
 This project is a real-time collaborative shopping app using Django, Django REST Framework, and WebSockets with JWT authentication. Users can register, log in, and share shopping carts with family members, updating items in real time. Key features include product management, and real-time cart updates using Django Channels and Redis.
-
+[watch demo video on grive](https://drive.google.com/file/d/19wjYCgKm7Jizyq_4n1tRFkSo2-wC4jCI/view?usp=drive_link)
 
 
 ![Banner](architecture.png) <!-- Replace with an actual animated banner URL -->
